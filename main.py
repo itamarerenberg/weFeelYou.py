@@ -23,7 +23,7 @@ import numpy as np
 #
 #
 
-PL_SIZE = 10
+PL_SIZE = 20
 
 
 def fit_playlist(face_pic):

@@ -49,6 +49,8 @@ def add_songs_to_db(pl_id):
         df = new_songs_df
     df.to_csv(DB_FILE, index=False)
 
-list_pl=['spotify:playlist:0VQQOxFEEg3D7ufmCqp2v0','spotify:playlist:70wLHBSTHerQ7eaPP3yBfZ','spotify:playlist:4KKrfwLN6Ml5fb2YTE9kPP','spotify:playlist:6b2zNL2PGawMnlGsF1Bbca','spotify:playlist:37i9dQZF1EjxkSHsqu8Rod','spotify:playlist:22yAOa01NKIxxRMJzmwrDm','spotify:playlist:37i9dQZF1DXcBWIGoYBM5M','spotify:playlist:37i9dQZF1DXbYM3nMM0oPk','https://open.spotify.com/playlist/37i9dQZF1DX0s5kDXi1oC5?si=88b8e7b09f2a4d30','spotify:playlist:37i9dQZF1DX4WYpdgoIcn6','spotify:playlist:37i9dQZF1DWTwnEm1IYyoj']
-for pl in list_pl:
-    add_songs_to_db(pl)
+
+if __name__ == '__main__':
+    list_pl=['spotify:playlist:0VQQOxFEEg3D7ufmCqp2v0','spotify:playlist:70wLHBSTHerQ7eaPP3yBfZ','spotify:playlist:4KKrfwLN6Ml5fb2YTE9kPP','spotify:playlist:6b2zNL2PGawMnlGsF1Bbca','spotify:playlist:37i9dQZF1EjxkSHsqu8Rod','spotify:playlist:22yAOa01NKIxxRMJzmwrDm','spotify:playlist:37i9dQZF1DXcBWIGoYBM5M','spotify:playlist:37i9dQZF1DXbYM3nMM0oPk','https://open.spotify.com/playlist/37i9dQZF1DX0s5kDXi1oC5?si=88b8e7b09f2a4d30','spotify:playlist:37i9dQZF1DX4WYpdgoIcn6','spotify:playlist:37i9dQZF1DWTwnEm1IYyoj']
+    for pl in list_pl:
+        add_songs_to_db(pl)

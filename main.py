@@ -4,6 +4,7 @@ import demoFuncs
 import detectEmotions
 import emosToMood
 import songs_db_maneger
+import fitToUser as ftu
 import time
 import cv2
 from PIL import Image
@@ -26,11 +27,13 @@ import numpy as np
 PL_SIZE = 20
 
 
-def fit_playlist(face_pic):
+def fit_playlist(face_pic, learn=True):
     '''
     :param face_pics: list of picture of a face
     :return: playlist of songs suitable to the pictures's face mood
     '''
+    caster = ftu.userLearner(not learn)
+    caster.learn_user()
     pic_emos = detectEmotions.getEmotions(face_pic)  # returns a dict like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
     domino_emo = 0
     dominon_emo_val = 0
@@ -39,7 +42,7 @@ def fit_playlist(face_pic):
             dominon_emo_val = pic_emos[e]
             domino_emo = e
     print(domino_emo)
-    mood = emosToMood.emosToMood(pic_emos)
+    mood = caster.emoToMood(pic_emos)  # emosToMood.emosToMood(pic_emos)
     pl = songs_db_maneger.fit_k_songs(PL_SIZE, mood)
     return pl
 

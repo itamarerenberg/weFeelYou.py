@@ -8,12 +8,15 @@ GAMMA = 0.1
 # emo_vecs = [eval(','.join(vec.split())) for vec in df.loc[:, 'mood_vec']]
 # songs = zip(df.loc[:, 'song_id'], emo_vecs)
 
-class emoToMood:
 
-    def __init__(self, d_file, in_size, out_size):
-        self.mat: np.matrix = np.mat((4, 7))
-        self.d_file = d_file
-        self._load_mat(self)
+class emoToMoodModel:
+
+    def __init__(self, in_size, out_size, load_from_file=False):
+        self.mat: np.matrix = np.mat((out_size, in_size))
+        # self.d_file = d_file
+
+        if load_from_file:
+            self._load_mat()
 
         self.in_size = in_size
         self.out_size = out_size
@@ -27,8 +30,11 @@ class emoToMood:
         # here I receive a matrix from Itamar! (self.mat should be replaced)
         numpy.savetxt('mat.csv', self.mat, delimiter=",")
 
-    def train(self, emos, exp):
-        self.mat -= self.gamma * self.gradient(emos, exp)
+    def fit(self, emos, exp, save=True):
+        for em, ex in zip(emos, exp):
+            self.mat -= self.gamma * self.gradient(em, ex)
+        if save:
+            self._save_mat()
 
     def gradient(self, emos, exp):
         g = np.zeros_like(self.mat)

@@ -34,7 +34,7 @@ def fit_playlist(face_pic):
     pic_emos = detectEmotions.getEmotions(face_pic)  # returns a dict like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
     domino_emo = 0
     dominon_emo_val = 0
-    for e in pic_emos.keys():
+    for e in pic_emos.keys(): # pick the dominate emotion
         if pic_emos[e] > dominon_emo_val:
             dominon_emo_val = pic_emos[e]
             domino_emo = e

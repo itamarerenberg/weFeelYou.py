@@ -40,12 +40,28 @@ class emoToMood:
                 g[r][c] = 2 * emos[c] * camp  # the derivative according to the var mat[r][c]
         return g
 
+    def predict(self, emos):
+        # (7, 4) * (4, 1)
+        return self.mat.dot(emos.T)
 
 weights_file = 'trined_models/emo_weights.csv'
 
 
 emos_order = ['happy', 'sad', 'angry', 'neutral']
 mood_order = ['happy', 'sad', 'energetic', 'calm']
+
+qa='what would you like to listen when you'
+songs=['Someone Like You, Adele','All of Me, John Legend','Slow Hands, Niall Horan']
+songs+=['Only Human, Jonas Brothers','Growing Pains, Alessia Cara','Survivor, Destiny\'s Child']
+songs+=['Havana, Instrumental Version','Can\'t Help Falling In Love, Kina Grannis']
+
+
+def quiz():
+
+    print(qa,' happy?')
+    song = input(songs).split(',')
+    df: pd.DataFrame = pd.read_csv('DB_FILE')
+
 
 
 def emosToMoodDumb(emos):

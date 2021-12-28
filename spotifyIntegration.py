@@ -29,6 +29,21 @@ def get_song_artists(song_id):
     return artists_str
 
 
+def get_song_album_name(song_id):
+    meta = sp.track(song_id)
+    return meta['album']['name']
+
+
+def get_song_popularity(song_id):
+    meta = sp.track(song_id)
+    return meta['popularity']
+
+
+def get_song_release_date(song_id):
+    meta = sp.track(song_id)
+    return meta['album']['release_date']
+
+
 def get_song_feature(song_id):
     meta = sp.track(song_id)
     features = sp.audio_features(song_id)

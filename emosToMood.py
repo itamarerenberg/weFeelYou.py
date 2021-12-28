@@ -1,15 +1,19 @@
+import numpy
 import pandas as pd
 import numpy as np
-
+from numpy import genfromtxt
 
 GAMMA = 0.1
+# df = pd.read_csv(DB_FILE)
+# emo_vecs = [eval(','.join(vec.split())) for vec in df.loc[:, 'mood_vec']]
+# songs = zip(df.loc[:, 'song_id'], emo_vecs)
 
 class emoToMood:
 
     def __init__(self, d_file, in_size, out_size):
-        self.mat: np.matrix = np.m((4, 7))
+        self.mat: np.matrix = np.mat((4, 7))
         self.d_file = d_file
-        self._load_mat()
+        self._load_mat(self)
 
         self.in_size = in_size
         self.out_size = out_size
@@ -17,17 +21,11 @@ class emoToMood:
         self.gamma = GAMMA
 
     def _load_mat(self, user='general'):
-        # self.mat = [loded vals]
-        pass
+        self.mat = genfromtxt('mat.csv', delimiter=',')
 
     def _save_mat(self):
-        saved_list = self.mat.d
-
-        # np.ndarray((2,), buffer=np.array([1, 2, 3]),
-        # offset = np.int_().itemsize,
-        # dtype = int
-        # save the 7X4 matrix (self.mat: np.ndarray)  of values of the model,
-        pass
+        # here I receive a matrix from Itamar! (self.mat should be replaced)
+        numpy.savetxt('mat.csv', self.mat, delimiter=",")
 
     def train(self, emos, exp):
         self.mat -= self.gamma * self.gradient(emos, exp)
@@ -45,7 +43,6 @@ class emoToMood:
         return self.mat.dot(emos.T)
 
 weights_file = 'trined_models/emo_weights.csv'
-
 
 emos_order = ['happy', 'sad', 'angry', 'neutral']
 mood_order = ['happy', 'sad', 'energetic', 'calm']
@@ -71,7 +68,8 @@ def emosToMoodDumb(emos):
     :param emos: a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
     :return: a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
     '''
-    return {'happy': emos['happy'], 'sad': emos['sad'], 'energetic': emos['angry'] + emos['happy'], 'calm': emos['neutral']}
+    return {'happy': emos['happy'], 'sad': emos['sad'], 'energetic': emos['angry'] + emos['happy'],
+            'calm': emos['neutral']}
 
 
 def emosToMood(emos):
@@ -92,3 +90,7 @@ def emosToMood(emos):
     #     mood_d[e] = sum([int(mtx[j][i]) * emos[emos_order[j]] for j in range(4)])
     #     i += 1
     # return mood_d
+
+# a = emoToMood
+# a.__init__(a, 'mat.csv', 1, 2)
+# a._save_mat(a)

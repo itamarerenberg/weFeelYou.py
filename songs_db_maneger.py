@@ -7,19 +7,18 @@ import spotifyIntegration
 DB_FILE = "songs1.csv"
 
 
-def fit_k_songs(pl_size, pic_mood):
+def fit_k_songs(pl_size, mood_vec):
     '''
     :param pl_size: size of the desired playlist
     :param pic_mood: picture to fit a playlist to
     :return: playlist of 'pl_size' most suitable songs to the pic_mood
     '''
-    mood_vec = [pic_mood['calm'], pic_mood['energetic'], pic_mood['happy'], pic_mood['sad']]
+    #  mood_vec = [pic_mood['calm'], pic_mood['energetic'], pic_mood['happy'], pic_mood['sad']]
     # load the song DB
     df = pd.read_csv(DB_FILE)
     #todo list of float
-    emo_vecs = [eval(','.join(vec.split())) for vec in df.loc[:, 'mood_vec']]
-    songs = zip(df.loc[:, 'song_id'], emo_vecs)
-
+    emo_vecs = list(zip(df['calm'], df['energetic'], df['happy'], df['sad']))
+    songs = zip(df.loc[:, 'id'], emo_vecs)
     songs = knn.knn(pl_size, songs, mood_vec)
     return songs
 
@@ -51,6 +50,10 @@ def add_songs_to_db(pl_id):
 
 
 if __name__ == '__main__':
-    list_pl=['spotify:playlist:0VQQOxFEEg3D7ufmCqp2v0','spotify:playlist:70wLHBSTHerQ7eaPP3yBfZ','spotify:playlist:4KKrfwLN6Ml5fb2YTE9kPP','spotify:playlist:6b2zNL2PGawMnlGsF1Bbca','spotify:playlist:37i9dQZF1EjxkSHsqu8Rod','spotify:playlist:22yAOa01NKIxxRMJzmwrDm','spotify:playlist:37i9dQZF1DXcBWIGoYBM5M','spotify:playlist:37i9dQZF1DXbYM3nMM0oPk','https://open.spotify.com/playlist/37i9dQZF1DX0s5kDXi1oC5?si=88b8e7b09f2a4d30','spotify:playlist:37i9dQZF1DX4WYpdgoIcn6','spotify:playlist:37i9dQZF1DWTwnEm1IYyoj']
-    for pl in list_pl:
-        add_songs_to_db(pl)
+    # list_pl=['spotify:playlist:0VQQOxFEEg3D7ufmCqp2v0','spotify:playlist:70wLHBSTHerQ7eaPP3yBfZ','spotify:playlist:4KKrfwLN6Ml5fb2YTE9kPP','spotify:playlist:6b2zNL2PGawMnlGsF1Bbca','spotify:playlist:37i9dQZF1EjxkSHsqu8Rod','spotify:playlist:22yAOa01NKIxxRMJzmwrDm','spotify:playlist:37i9dQZF1DXcBWIGoYBM5M','spotify:playlist:37i9dQZF1DXbYM3nMM0oPk','https://open.spotify.com/playlist/37i9dQZF1DX0s5kDXi1oC5?si=88b8e7b09f2a4d30','spotify:playlist:37i9dQZF1DX4WYpdgoIcn6','spotify:playlist:37i9dQZF1DWTwnEm1IYyoj']
+    # for pl in list_pl:
+    #     add_songs_to_db(pl)
+    df = pd.read_csv(DB_FILE)
+    # todo list of float
+    emo_vecs = list(zip(df['calm'], df['energetic'], df['happy'], df['sad']))
+    print(emo_vecs)

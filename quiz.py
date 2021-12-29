@@ -64,5 +64,8 @@ def quiz():
     result_pic += [(0, 0, 0, 0, 0, 0, 1)]
     result_song += [songs[song]]
 
-    return result_pic,result_song
-quiz()
+    return result_pic, result_song
+
+
+if __name__ == '__main__':
+    pass

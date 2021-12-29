@@ -12,7 +12,7 @@ GAMMA = 0.1
 class emoToMoodModel:
 
     def __init__(self, in_size, out_size, load_from_file=False):
-        self.mat: np.matrix = np.mat((out_size, in_size))
+        self.mat: np.matrix = np.zeros((out_size, in_size))
         # self.d_file = d_file
 
         if load_from_file:
@@ -38,9 +38,9 @@ class emoToMoodModel:
 
     def gradient(self, emos, exp):
         g = np.zeros_like(self.mat)
-        for r in self.out_size:
-            camp = sum([self.mat[r][c] * emos[c] for c in self.in_size]) - exp[r]
-            for c in self.mat[r]:
+        for r in range(self.out_size):
+            camp = sum([self.mat[r][c] * emos[c] for c in range(self.in_size)]) - exp[r]
+            for c in range(self.in_size):
                 g[r][c] = 2 * emos[c] * camp  # the derivative according to the var mat[r][c]
         return g
 

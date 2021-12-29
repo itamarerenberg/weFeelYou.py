@@ -27,6 +27,19 @@ import numpy as np
 PL_SIZE = 20
 
 
+def dsource():
+    emos, exp = [], []
+    for i in range(7):
+        em = [0, 0, 0, 0, 0, 0, 0]
+        ex = [0, 0, 0, 0]
+        em[i] = 1
+        ex[i % 4] = .5
+        ex[(i + 2) % 4] = .25
+        emos.append(em)
+        exp.append(ex)
+    return emos, exp
+
+
 def fit_playlist(face_pic, learn=True):
     '''
     :param face_pics: list of picture of a face

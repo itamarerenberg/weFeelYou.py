@@ -1,3 +1,5 @@
+import numpy as np
+
 import emosToMood as etm
 import quiz
 
@@ -11,5 +13,5 @@ class userLearner:
         emos, exp = data_source()
         self.model.fit(emos, exp)
 
-    def emoToMood(self, emos):
-        return self.model.predict(emos)
+    def emoToMood(self, emos:dict):
+        return self.model.predict(np.array(list(emos.values())))

@@ -46,7 +46,7 @@ def fit_playlist(face_pic, learn=True):
     :return: playlist of songs suitable to the pictures's face mood
     '''
     caster = ftu.userLearner(not learn)
-    caster.learn_user()
+    caster.learn_user()#data_source=dsource)
     pic_emos = detectEmotions.getEmotions(face_pic)  # returns a dict like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
     domino_emo = 0
     dominon_emo_val = 0
@@ -71,10 +71,11 @@ def add_pl_to_db(pl_id):
 # pl_id = 'spotify:playlist:37i9dQZF1E3a3sxiJLF0ZI'
 # add_pl_to_db(pl_id)
 face_pic = demoFuncs.takePicture()
-ids_pl = fit_playlist(face_pic)
-for s_id in ids_pl:
-    print(spotifyIntegration.get_song_name(s_id), "https://open.spotify.com/track/" + s_id)#, ' by: ', spotifyIntegration.get_song_artists(s_id))
-# pl = []
+print(fit_playlist(face_pic))
+# fit_playlist(face_pic)
+# for s_id in ids_pl:
+#     print(spotifyIntegration.get_song_name(s_id), "https://open.spotify.com/track/" + s_id)#, ' by: ', spotifyIntegration.get_song_artists(s_id))
+#pl = []
 # for s_id in ids_pl:
 #     pl.append(spotifyIntegration.get_song_name(s_id))
 # print(pl)

@@ -84,3 +84,10 @@ def get_pl_songs(pl_id):
     for song in playlist['items']:
         songs += [song['track']['id']]
     return songs
+
+
+def create_playlist(name, songs):
+    pl = spt.user_playlist_create(user=username, name=name)
+
+    spt.user_playlist_add_tracks(user=username, playlist_id=pl['id'], tracks=songs)
+    return pl

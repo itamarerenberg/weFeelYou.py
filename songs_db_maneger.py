@@ -20,13 +20,11 @@ def fit_k_songs(pl_size, mood_vec):
     df = pd.read_csv(DB_FILE)
     #todo list of float
     emo_vecs = list(zip(df['calm'], df['energetic'], df['happy'], df['sad']))
-    songs = zip(df.loc[:, 'id'], emo_vecs)
+    songs = list(zip(df.loc[:, 'id'], emo_vecs))
     songs = knn.knn(pl_size, songs, mood_vec)
-
-    pl=spotipy.Spotify.user_playlist_create(user=spotifyIntegration.username,name='My Emotional Playlist',public=False)
-    for song in songs:
-        spotipy.Spotify.user_playlist_add_tracks(user=spotifyIntegration.username,playlist_id=pl,tracks=song[0])
-    return pl
+    pl = spotifyIntegration.create_playlist('My Emotional Playlist1', songs)
+    print(pl)
+    return songs
 
 
 def add_songs_to_db(pl_id):

@@ -33,36 +33,36 @@ def quiz():
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]
     song = input('write the song number:')
     result_pic = [(1, 0, 0, 0, 0, 0, 0)]
-    result_song = [songs_vec[song]]
+    result_song = [songs_vec[int(song)]]
 
     print(qa, ' fear?')
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]
     song = input('write the song number:')
     result_pic += [(0, 0, 1, 0, 0, 0, 0)]
-    result_song += [songs_vec[song]]
+    result_song += [songs_vec[int(song)]]
 
     print(qa, ' happy?')
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]
     song = input('write the song number:')
     result_pic += [(0,0,0,1,0,0,0)]
-    result_song += [songs_vec[song]]
+    result_song += [songs_vec[int(song)]]
 
     print(qa, ' sad?')
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]
     song = input('write the song number:')
     result_pic += [(0, 0, 0, 0, 1, 0, 0)]
-    result_song += [songs_vec[song]]
+    result_song += [songs_vec[int(song)]]
 
     print(qa, ' surprise?')
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]
     song = input('write the song number:')
     result_pic += [(0, 0, 0, 0, 0, 1, 0)]
-    result_song += [songs_vec[song]]
+    result_song += [songs_vec[int(song)]]
 
     print(qa, ' neutral?')
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]
     song = input('write the song number:')
     result_pic += [(0, 0, 0, 0, 0, 0, 1)]
-    result_song += [songs_vec[song]]
+    result_song += [songs_vec[int(song)]]
 
     return result_pic,result_song

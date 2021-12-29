@@ -1,6 +1,5 @@
 # weFeelYou.py
-
-Emotion detection that fits playlist accordingly {MOOD --> PLAYLIST}
+detect emotion and fits playlist accordingly {MOOD --> PLAYLIST}
 
 ABSTRACT
 

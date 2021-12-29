@@ -1,4 +1,6 @@
 import pandas as pd
+import spotipy
+
 import knn
 import quantefySong
 import spotifyIntegration
@@ -20,7 +22,11 @@ def fit_k_songs(pl_size, mood_vec):
     emo_vecs = list(zip(df['calm'], df['energetic'], df['happy'], df['sad']))
     songs = zip(df.loc[:, 'id'], emo_vecs)
     songs = knn.knn(pl_size, songs, mood_vec)
-    return songs
+
+    pl=spotipy.Spotify.user_playlist_create(user=spotifyIntegration.username,name='My Emotional Playlist',public=False)
+    for song in songs:
+        spotipy.Spotify.user_playlist_add_tracks(user=spotifyIntegration.username,playlist_id=pl,tracks=song[0])
+    return pl
 
 
 def add_songs_to_db(pl_id):

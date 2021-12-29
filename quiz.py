@@ -26,43 +26,43 @@ def quiz():
     func(sad_songs.loc[0])
     func(sad_songs.loc[1])
 
-    songs_name= list(songs.keys())
+    songs_vec=list(songs.values())
+    songs_name= list(zip(range(8),list(songs.keys()),songs_vec))
 
     print(qa, ' angry?')
-    print(songs_name)
-    song = input('copy and paste here:')
+    [print(x[0],':',x[1],',',x[2]) for x in songs_name]
+    song = input('write the song number:')
     result_pic = [(1, 0, 0, 0, 0, 0, 0)]
-    result_song = [songs[song]]
+    result_song = [songs_vec[song]]
 
     print(qa, ' fear?')
-    print(songs_name)
-    song = input('copy and paste here:')
+    [print(x[0],':',x[1],',',x[2]) for x in songs_name]
+    song = input('write the song number:')
     result_pic += [(0, 0, 1, 0, 0, 0, 0)]
-    result_song += [songs[song]]
+    result_song += [songs_vec[song]]
 
     print(qa, ' happy?')
-    print(songs_name)
-    song = input('copy and paste here:')
+    [print(x[0],':',x[1],',',x[2]) for x in songs_name]
+    song = input('write the song number:')
     result_pic += [(0,0,0,1,0,0,0)]
-    result_song += [songs[song]]
+    result_song += [songs_vec[song]]
 
     print(qa, ' sad?')
-    print(songs_name)
-    song = input('copy and paste here:')
+    [print(x[0],':',x[1],',',x[2]) for x in songs_name]
+    song = input('write the song number:')
     result_pic += [(0, 0, 0, 0, 1, 0, 0)]
-    result_song += [songs[song]]
+    result_song += [songs_vec[song]]
 
     print(qa, ' surprise?')
-    print(songs_name)
-    song = input('copy and paste here:')
+    [print(x[0],':',x[1],',',x[2]) for x in songs_name]
+    song = input('write the song number:')
     result_pic += [(0, 0, 0, 0, 0, 1, 0)]
-    result_song += [songs[song]]
+    result_song += [songs_vec[song]]
 
     print(qa, ' neutral?')
-    print(songs_name)
-    song = input('copy and paste here:')
+    [print(x[0],':',x[1],',',x[2]) for x in songs_name]
+    song = input('write the song number:')
     result_pic += [(0, 0, 0, 0, 0, 0, 1)]
-    result_song += [songs[song]]
+    result_song += [songs_vec[song]]
 
     return result_pic,result_song
-quiz()

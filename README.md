@@ -10,7 +10,7 @@ the mood recognition process is, first the user send his picture
 as input, then the program run a deep neural network to extract from 
 the picture a vector of emotions that the user is corrently in. 
 
-the vector contain percentages of these emotions {happy, sad, angry, energetic, neutral, calm, focus}.
+the vector contain percentages of these emotions {happy, sad, angry, energetic, neutral, calm, fear}.
 
 our program then implement Gradient descent algorithm to convert the general vector emotions,
 to more specific vector of emotions, from 7 to 4 basic emotions {happy, sad, energetic, calm}. 

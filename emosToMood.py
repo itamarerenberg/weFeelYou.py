@@ -24,11 +24,11 @@ class emoToMoodModel:
         self.gamma = GAMMA
 
     def _load_mat(self, user='general'):
-        self.mat = genfromtxt('mat.csv', delimiter=',')
+        self.mat = genfromtxt('trained_models/mat.csv', delimiter=',')
 
     def _save_mat(self):
         # here I receive a matrix from Itamar! (self.mat should be replaced)
-        numpy.savetxt('mat.csv', self.mat, delimiter=",")
+        numpy.savetxt('trained_models/mat.csv', self.mat, delimiter=",")
 
     def fit(self, emos, exp, save=True):
         for em, ex in zip(emos, exp):
@@ -48,7 +48,7 @@ class emoToMoodModel:
         # (7, 4) * (4, 1)
         return self.mat.dot(emos.T)
 
-weights_file = 'trined_models/emo_weights.csv'
+weights_file = 'trained_models/emo_weights.csv'
 
 emos_order = ['happy', 'sad', 'angry', 'neutral']
 mood_order = ['happy', 'sad', 'energetic', 'calm']

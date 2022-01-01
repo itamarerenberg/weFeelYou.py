@@ -1,3 +1,5 @@
+import webbrowser
+
 import pandas as pd
 import spotipy
 
@@ -23,7 +25,13 @@ def fit_k_songs(pl_size, mood_vec):
     songs = list(zip(df.loc[:, 'id'], emo_vecs))
     songs = knn.knn(pl_size, songs, mood_vec)
     pl = spotifyIntegration.create_playlist('My Emotional Playlist1', songs)
-    print(pl)
+    print('pl:',pl)
+    url = pl['external_urls']['spotify']
+
+    webbrowser.register('chrome',
+                        None,
+                        webbrowser.BackgroundBrowser("C://Program Files//Google//Chrome//Application//chrome.exe"))
+    webbrowser.get('chrome').open(url)
     return songs
 
 

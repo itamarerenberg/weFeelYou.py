@@ -2,7 +2,7 @@ import cv2
 
 
 def takePicture():
-    cam = cv2.VideoCapture(0)
+    cam = cv2.VideoCapture(1)
     ret, image = cam.read()
     cam.release()
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)

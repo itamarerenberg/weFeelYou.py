@@ -2,8 +2,7 @@ import pandas as pd
 
 DB_FILE = 'songs1.csv'
 qa = 'what would you like to listen when you'
-
-
+list_of_quiz=[]
 
 def quiz():
     songs={}
@@ -28,6 +27,7 @@ def quiz():
 
     songs_vec=list(songs.values())
     songs_name= list(zip(range(8),list(songs.keys()),songs_vec))
+
 
     print(qa, ' angry?')
     [print(x[0],':',x[1],',',x[2]) for x in songs_name]

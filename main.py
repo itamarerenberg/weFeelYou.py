@@ -23,6 +23,8 @@ import numpy as np
 #     image_torch = torch.tensor(np.array(image))
 #
 #
+import ui_capture_picture
+import webbrowser
 
 PL_SIZE = 20
 
@@ -70,7 +72,10 @@ def add_pl_to_db(pl_id):
 
 # pl_id = 'spotify:playlist:37i9dQZF1E3a3sxiJLF0ZI'
 # add_pl_to_db(pl_id)
-face_pic = demoFuncs.takePicture()
+face_pic = ui_capture_picture.take_picture()
+#face_pic = demoFuncs.takePicture()
+
+
 print(fit_playlist(face_pic))
 # fit_playlist(face_pic)
 # for s_id in ids_pl:

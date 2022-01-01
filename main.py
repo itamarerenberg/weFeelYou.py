@@ -72,7 +72,7 @@ def add_pl_to_db(pl_id):
 
 # pl_id = 'spotify:playlist:37i9dQZF1E3a3sxiJLF0ZI'
 # add_pl_to_db(pl_id)
-face_pic = ui.take_picture()
+face_pic = ui_capture_picture.take_picture()
 #face_pic = demoFuncs.takePicture()
 
 

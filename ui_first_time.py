@@ -37,12 +37,12 @@ def ui_first_time():
     layout = [
 
         [sg.Listbox(list_of_quiz,size=(170,10))],
-        [sg.Text(QA + 'angry?'), sg.InputText()],
-        [sg.Text(QA + 'fear?'), sg.InputText()],
-        [sg.Text(QA + 'happy?'), sg.InputText()],
-        [sg.Text(QA + 'sad?'), sg.InputText()],
-        [sg.Text(QA + 'surprise?'), sg.InputText()],
-        [sg.Text(QA + 'neutral?'), sg.InputText()],
+        [sg.Text(QA + 'angry?',justification='center'), sg.InputText()],
+        [sg.Text(QA + 'fear?',justification='center'), sg.InputText()],
+        [sg.Text(QA + 'happy?',justification='center'), sg.InputText()],
+        [sg.Text(QA + 'sad?',justification='center'), sg.InputText()],
+        [sg.Text(QA + 'surprise?',justification='center'), sg.InputText()],
+        [sg.Text(QA + 'neutral?',justification='center'), sg.InputText()],
 
         [sg.Button('END')]
     ]
@@ -53,10 +53,11 @@ def ui_first_time():
     # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'END': # if user closes window or clicks end
+        if event == 'END': # if user closes window or clicks end
             result_song += [songs_vec[int(values[1])], songs_vec[int(values[2])], songs_vec[int(values[3])],
                             songs_vec[int(values[4])], songs_vec[int(values[5])], songs_vec[int(values[6])]]
             break
-
+        if  event == sg.WIN_CLOSED:
+            break
     window.close()
     return result_pic, result_song

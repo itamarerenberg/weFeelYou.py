@@ -72,11 +72,11 @@ def add_pl_to_db(pl_id):
 
 # pl_id = 'spotify:playlist:37i9dQZF1E3a3sxiJLF0ZI'
 # add_pl_to_db(pl_id)
-face_pic = ui_capture_picture.take_picture()
+# face_pic = ui_capture_picture.take_picture()
 #face_pic = demoFuncs.takePicture()
 
 
-print(fit_playlist(face_pic))
+# print(fit_playlist(face_pic))
 # fit_playlist(face_pic)
 # for s_id in ids_pl:
 #     print(spotifyIntegration.get_song_name(s_id), "https://open.spotify.com/track/" + s_id)#, ' by: ', spotifyIntegration.get_song_artists(s_id))

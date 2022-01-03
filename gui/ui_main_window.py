@@ -39,7 +39,7 @@ def add_songs(userName):
 
     layout=[
         [sg.Text('enter the link to the spotify playlist', justification='center'), sg.InputText()],
-        [sg.Button('ADD')]
+        [sg.Button('ADD'), sg.Button('done!')]
     ]
 
     # Create the Window
@@ -51,7 +51,6 @@ def add_songs(userName):
         if event == 'ADD':
             adder = threading.Thread(target=sDB.add_songs_to_db, args=(values[0], userName))
             adder.start()
-            break
         if event==sg.WIN_CLOSED:
             break
     window.close()
@@ -74,11 +73,9 @@ def main(userName):
             face_pic = ui_capture_picture.take_picture()
             pl = fit_playlist(face_pic, userName=userName)
             webbrowser.open(pl)
-            break
         if event=='Add Playlist To DataBase':
             add_songs(userName)
-            break
-        if event==sg.WIN_CLOSED:
+        if event in [sg.WIN_CLOSED, 'done']:
             break
     window.close()
 

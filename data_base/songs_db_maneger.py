@@ -83,7 +83,7 @@ def create_new_songs_file(fileName):
         {'id': [], 'calm': [], 'energetic': [], 'happy': [], 'sad': [], 'name': [],
          'artists': [], 'album': [], 'release_date': [],
          'popularity': []})
-    df.to_csv(songs_file_path)
+    new_songs_df.to_csv(songs_file_path)
 
 
 if __name__ == '__main__':

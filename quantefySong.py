@@ -13,8 +13,8 @@ def load_model():
     global model
     global scaler
     global loaded
-    model = keras.models.load_model('trained_models/music_clisifier_model')
-    scaler = pickle.load(open('trained_models/scaler.pkl', 'rb'))
+    model = keras.models.load_model('data_base/data/trained_models/music_clisifier_model')
+    scaler = pickle.load(open('data_base/data/trained_models/scaler.pkl', 'rb'))
     loaded = True
 
 

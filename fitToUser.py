@@ -1,14 +1,13 @@
 import numpy as np
 
 import emosToMood as etm
-import quiz
-import ui_first_time
+from gui import ui_first_time
 
 
 class userLearner:
 
-    def __init__(self, load=False):
-        self.model = etm.emoToMoodModel(7, 4, load_from_file=load)
+    def __init__(self, load=False, userName='') -> object:
+        self.model = etm.emoToMoodModel(7, 4, load_from_file=load, userName=userName)
 
     def learn_user(self, data_source=ui_first_time.ui_first_time):
         emos, exp = data_source()

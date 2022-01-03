@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import pandas as pd
 
-DB_FILE = 'songs1.csv'
+DB_FILE = './data_base/data/users_songs/songs1.csv'
 QA = 'what would you like to listen when you are '
 result_pic=[(1, 0, 0, 0, 0, 0, 0),(0, 0, 1, 0, 0, 0, 0),(0,0,0,1,0,0,0),(0, 0, 0, 0, 1, 0, 0),(0, 0, 0, 0, 0, 1, 0),(0, 0, 0, 0, 0, 0, 1)]
 

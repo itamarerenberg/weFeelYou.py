@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 
 def take_picture():
     # Camera Settings
-    video_capture = cv2.VideoCapture(0)
+    video_capture = cv2.VideoCapture(1)
 
     # init Windows Manager
     sg.theme("DarkBlue")

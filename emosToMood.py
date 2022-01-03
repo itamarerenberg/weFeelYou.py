@@ -2,6 +2,7 @@ import numpy
 import pandas as pd
 import numpy as np
 from numpy import genfromtxt
+import os
 
 
 USERS_MATS_DIR = './data_base/data/trained_models/users_mats'
@@ -32,6 +33,8 @@ class emoToMoodModel:
 
     def _save_mat(self):
         # here I receive a matrix from Itamar! (self.mat should be replaced)
+        # if not os.path.exists(f'{USERS_MATS_DIR}/({self.userName})mat.csv'):
+        #     open(f'{USERS_MATS_DIR}/({self.userName})mat.csv')
         numpy.savetxt(f'{USERS_MATS_DIR}/({self.userName})mat.csv', self.mat, delimiter=",")
 
     def fit(self, emos, exp, save=True):

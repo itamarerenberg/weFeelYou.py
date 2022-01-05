@@ -17,6 +17,7 @@ def find_biggest_face_emotions(faces_emos):
 
 def getEmotions_manySamples(imgs):
     '''
+    Args: imgs: list of images
     :return: emotions of the biggest face in the picture
     '''
     faces_emotions = []

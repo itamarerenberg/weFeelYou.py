@@ -9,13 +9,13 @@ USERS_MATS_DIR = './data_base/data/trained_models/users_mats'
 
 
 GAMMA = 0.1
-# df = pd.read_csv(DB_FILE)
-# emo_vecs = [eval(','.join(vec.split())) for vec in df.loc[:, 'mood_vec']]
-# songs = zip(df.loc[:, 'song_id'], emo_vecs)
-
 
 class emoToMoodModel:
 
+    # convert a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
+    # to a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
+    # :param emos: a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
+    # :return: a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
     def __init__(self, in_size, out_size, load_from_file=False, userName=''):
         self.mat: np.matrix = np.zeros((out_size, in_size))
         # self.d_file = d_file
@@ -32,9 +32,6 @@ class emoToMoodModel:
         self.mat = genfromtxt(f'{USERS_MATS_DIR}/({self.userName})mat.csv', delimiter=',')
 
     def _save_mat(self):
-        # here I receive a matrix from Itamar! (self.mat should be replaced)
-        # if not os.path.exists(f'{USERS_MATS_DIR}/({self.userName})mat.csv'):
-        #     open(f'{USERS_MATS_DIR}/({self.userName})mat.csv')
         numpy.savetxt(f'{USERS_MATS_DIR}/({self.userName})mat.csv', self.mat, delimiter=",")
 
     def fit(self, emos, exp, save=True):
@@ -55,55 +52,15 @@ class emoToMoodModel:
         # (7, 4) * (4, 1)
         return self.mat.dot(emos.T)
 
-weights_file = 'data_base/data/trained_models/emo_weights.csv'
-
-emos_order = ['happy', 'sad', 'angry', 'neutral']
-mood_order = ['happy', 'sad', 'energetic', 'calm']
-
-qa='what would you like to listen when you'
-songs=['Someone Like You, Adele','All of Me, John Legend','Slow Hands, Niall Horan']
-songs+=['Only Human, Jonas Brothers','Growing Pains, Alessia Cara','Survivor, Destiny\'s Child']
-songs+=['Havana, Instrumental Version','Can\'t Help Falling In Love, Kina Grannis']
-
-
-def quiz():
-
-    print(qa,' happy?')
-    song = input(songs).split(',')
-    df: pd.DataFrame = pd.read_csv('DB_FILE')
 
 
 
-def emosToMoodDumb(emos):
-    '''
-    convert a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
-    to a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
-    :param emos: a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
-    :return: a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
-    '''
-    return {'happy': emos['happy'], 'sad': emos['sad'], 'energetic': emos['angry'] + emos['happy'],
-            'calm': emos['neutral']}
-
-
-def emosToMood(emos):
-    t = emosToMoodDumb(emos)
-    print(t)
-    return t
-    # df = pd.read_csv(weights_file)
-    # mtx = df.to_numpy()
-    # '''
-    # convert a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
-    # to a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
-    # :param emos: a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
-    # :return: a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
-    # '''
-    # mood_d = {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
-    # i = 0
-    # for e in mood_d.keys():
-    #     mood_d[e] = sum([int(mtx[j][i]) * emos[emos_order[j]] for j in range(4)])
-    #     i += 1
-    # return mood_d
-
-# a = emoToMood
-# a.__init__(a, 'mat.csv', 1, 2)
-# a._save_mat(a)
+# def emosToMoodDumb(emos):
+#     '''
+#     convert a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
+#     to a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
+#     :param emos: a dict of emotions like {‘angry’: 0.0, ‘disgust’: 0.0, ‘fear’: 0.0, ‘happy’: 1.0, ‘sad’: 0.0, ‘surprise’: 0.0, ‘neutral’: 0.0}
+#     :return: a dict like  {'happy': 0, 'sad': 0, 'energetic': 0, 'calm': 0}
+#     '''
+#     return {'happy': emos['happy'], 'sad': emos['sad'], 'energetic': emos['angry'] + emos['happy'],
+#             'calm': emos['neutral']}

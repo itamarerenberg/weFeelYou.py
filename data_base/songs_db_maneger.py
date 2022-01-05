@@ -21,7 +21,6 @@ def fit_k_songs(pl_size, mood_vec, userName='general'):
     #  mood_vec = [pic_mood['calm'], pic_mood['energetic'], pic_mood['happy'], pic_mood['sad']]
     # load the song DB
     df = pd.read_csv(f'{USERS_SONGS_DIR}/({userName})songs.csv')
-    #todo list of float
     emo_vecs = list(zip(df['calm'], df['energetic'], df['happy'], df['sad']))
     songs = list(zip(df.loc[:, 'id'], emo_vecs))
     songs = knn.knn(pl_size, songs, mood_vec)
@@ -67,13 +66,14 @@ def add_songs_to_db(pl_id, userName='general'):
 def get_k_most(k, mood, userName=None):
     if userName is None:
         df = pd.read_csv(f'{USERS_SONGS_DIR}/songs1.csv')
+        print("WARNING: get_k_most: userName = None")
     else:
         try:
             df = pd.read_csv(f'{USERS_SONGS_DIR}/({userName})songs.csv')
         except FileNotFoundError:
             df = pd.read_csv(f'{USERS_SONGS_DIR}/songs1.csv')
-            print(f'{userName} songs file not found')
-    kMost = df.sort_values(by=[mood], ignore_index=True, ascending=False)
+            print(f'WARNING: {userName} songs file not found')
+    kMost = df.sort_values(by=[mood], ignore_index=True, ascending=False)[:k]
     return kMost
 
 

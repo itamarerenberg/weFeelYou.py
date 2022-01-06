@@ -77,7 +77,7 @@ def get_k_most(k, mood, userName=None):
     kMost = []
     # todo: need to debug with non empty songs file
     for row in kMostDf.iterrows():
-        kMost.append(dict(row))
+        kMost.append(dict(row[1]))
     return kMost
 
 

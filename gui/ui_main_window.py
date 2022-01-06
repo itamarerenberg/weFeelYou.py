@@ -2,6 +2,8 @@ import threading
 import time
 
 import PySimpleGUI as sg
+
+import fitToUser
 from data_base import songs_db_maneger as sDB
 from main import *
 import webbrowser
@@ -84,7 +86,6 @@ def ui_first_time(user_name):
     return result_pic, result_song
 
 
-
 def take_picture():
     # Camera Settings
     video_capture = cv2.VideoCapture(1)
@@ -150,7 +151,10 @@ def sign_in():
                 main(values['userName'])
             else:
                 window.close()
-                new_user(values['userName'])
+                users_db_maneger.add_user(values['userName'])
+                add_songs(values['userName'])
+                caster = ftu.userLearner(load=False, userName=values['userName'])
+                caster.learn_user(data_source=ui_first_time)
                 main(values['userName'])
             break
         if event==sg.WIN_CLOSED:
@@ -165,7 +169,7 @@ def progress_msg(progress: str, progress_thread: threading.Thread):
     sg.theme('BluePurple')
 
     # adding songs progress animation
-    animation_texsts = [progress] + ['', '.', '..', '...']
+    animation_texsts = progress + ['', '.', '..', '...']
     progress_txt = sg.Text(key='progress_txt')
 
     layout = [
@@ -176,23 +180,23 @@ def progress_msg(progress: str, progress_thread: threading.Thread):
 
     i = 0
     while progress_thread.is_alive():
-        time.sleep(.5)
-        progress_txt.update(animation_texsts[i])
-        i = (i + 1) % len(animation_texsts)
+        event, values = window.read()
+        if event==sg.WIN_CLOSED:
+            break
+        if time.time() - t >= 0.5:  # change the animation each 0.5 seconds
+            t = time.time()
+            progress_txt.update(progress + animation_texsts[i])
+            window.finalize()
+            i = (i + 1) % len(animation_texsts)
 
 
 def add_songs(userName):
 
     sg.theme('BluePurple')
 
-    # adding songs progress animation
-    animation_texsts = ['adding the playlist'] + ['', '.', '..', '...']
-    progress_txt = sg.Text(key='progress_txt')
-
     layout=[
-        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.Multiline(size=(50,4),key='pl_id')],
-        [sg.Button('add')],
-        [progress_txt]
+        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.InputText()],
+        [sg.Button('add')]
     ]
 
     # Create the Window
@@ -203,10 +207,10 @@ def add_songs(userName):
     while True:
         event, values = window.read()
         if event=='add':
-            adder = threading.Thread(target=sDB.add_multiple_playlists, args=(values['pl_id'], userName))
+            adder = threading.Thread(target=sDB.add_songs_to_db, args=(values[0], userName))
             adder.start()
+            adder.join()
             window.close()
-            progress_msg('adding playlists', adder)
             break
         if event==sg.WIN_CLOSED:
             break

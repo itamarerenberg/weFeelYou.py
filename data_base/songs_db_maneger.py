@@ -68,7 +68,7 @@ def add_songs_to_db(pl_id, userName='general'):
 def get_k_most(k, mood, userName=None):
     if userName is None:
         df = pd.read_csv(f'{USERS_SONGS_DIR}/songs1.csv')
-        print("WARNING: get_k_most: userName = None")
+        print("WARNING: get_k_most: user_name = None")
     else:
         try:
             df = pd.read_csv(f'{USERS_SONGS_DIR}/({userName})songs.csv')

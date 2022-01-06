@@ -1,11 +1,13 @@
 from fer import FER
 
-
 detector = FER(mtcnn=True)
 
 
-def find_biggest_face_emotions(faces_emos):
-    # find the emotions of the biggest face in the picture
+def find_dominant_face_emotions(faces_emos):
+    '''
+    :arg faces_emos: vector of faces emotion
+    :return: vector of the emotion vector of the dominant face in the image
+    '''
     biggest_box_size = 0
     biggest_face_emos = 0
     for d in faces_emos:
@@ -17,13 +19,14 @@ def find_biggest_face_emotions(faces_emos):
 
 def getEmotions_manySamples(imgs):
     '''
-    Args: imgs: list of images
-    :return: emotions of the biggest face in the picture
+    :arg imgs: list of images
+    :return: average of emotions of the dominant face in the images
     '''
     faces_emotions = []
     for img in imgs:
         faces_emotions += [detector.detect_emotions(img)]
-    emo_samples = [find_biggest_face_emotions(emo_sample) for emo_sample in faces_emotions]
+    emo_samples = [find_dominant_face_emotions(emo_sample) for emo_sample in faces_emotions]
+
     # find the emotions of the biggest face in the picture
     for i in range(len(emo_samples) - 1):
         for emo in emo_samples[0].keys():
@@ -36,9 +39,9 @@ def getEmotions_manySamples(imgs):
 
 def getEmotions(img):
     '''
-    :return: emotions of the biggest face in the picture
+    :arg img: image of face
+    :return: emotions of the dominant face in the image
     '''
     faces_emotions = detector.detect_emotions(img)
-    emos = find_biggest_face_emotions(faces_emotions)
-    # find the emotions of the biggest face in the picture
+    emos = find_dominant_face_emotions(faces_emotions)
     return emos

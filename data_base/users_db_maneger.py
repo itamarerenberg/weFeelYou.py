@@ -5,6 +5,11 @@ USERS_SONGS_DIR = './data_base/data/users_songs'
 
 
 def is_user_exist(userName):
+    '''
+
+    :param userName:
+    :return:
+    '''
     with open(USERS_FILE, 'r') as ufile:
         for user in ufile:
             if user == userName:

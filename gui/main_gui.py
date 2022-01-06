@@ -136,7 +136,7 @@ def sign_in():
     sg.theme('BluePurple')
     layout = [
         [sg.Text('sign in', justification='center')],
-        [sg.Text('user name'), sg.InputText(key='userName')],
+        [sg.Text('user name'), sg.InputText(key='user_name')],
         [sg.Button('sign in')],
     ]
     # Create the Window
@@ -146,16 +146,16 @@ def sign_in():
     while True:
         event, values = window.read()
         if event=='sign in':
-            if is_user_exist(values['userName']):
+            if is_user_exist(values['user_name']):
                 window.close()
-                main_window(values['userName'])
+                main_window(values['user_name'])
             else:
                 window.close()
-                users_db_maneger.add_user(values['userName'])
-                add_songs(values['userName'])
-                caster = ftu.userLearner(load=False, userName=values['userName'])
+                users_db_maneger.add_user(values['user_name'])
+                add_songs(values['user_name'])
+                caster = ftu.userLearner(load=False, userName=values['user_name'])
                 caster.learn_user(data_source=ui_first_time)
-                main_window(values['userName'])
+                main_window(values['user_name'])
             break
         if event==sg.WIN_CLOSED:
             break

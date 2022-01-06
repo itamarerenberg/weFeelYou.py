@@ -8,7 +8,7 @@ class userLearner:
 
     def __init__(self, load=False, userName='') -> object:
         self.user_name=userName
-        self.model = etm.emoToMoodModel(7, 4, load_from_file=load, userName=userName)
+        self.model = etm.EmoToMoodModel(7, 4, load_from_file=load, user_name=userName)
 
     def learn_user(self, data_source):
         emos, exp = data_source(self.user_name)

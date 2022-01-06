@@ -31,6 +31,10 @@ def dsource():
     return emos, exp
 
 
+def is_user_exist(userName):
+    return users_db_maneger.is_user_exist(userName)
+
+
 def new_user(uName=''):
     """
     register a new user and displays a quiz for learning the new user

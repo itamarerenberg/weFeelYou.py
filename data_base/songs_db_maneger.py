@@ -73,7 +73,11 @@ def get_k_most(k, mood, userName=None):
         except FileNotFoundError:
             df = pd.read_csv(f'{USERS_SONGS_DIR}/songs1.csv')
             print(f'WARNING: {userName} songs file not found')
-    kMost = df.sort_values(by=[mood], ignore_index=True, ascending=False)[:k]
+    kMostDf = df.sort_values(by=[mood], ignore_index=True, ascending=False)[:k]
+    kMost = []
+    # todo: need to debug with non empty songs file
+    for row in kMostDf.iterrows():
+        kMost.append(dict(row))
     return kMost
 
 

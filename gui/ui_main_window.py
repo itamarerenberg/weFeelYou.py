@@ -1,4 +1,5 @@
 import threading
+import time
 
 import PySimpleGUI as sg
 from data_base import songs_db_maneger as sDB
@@ -15,11 +16,11 @@ QA = 'what would you like to listen when you are '
 result_pic=[(1, 0, 0, 0, 0, 0, 0),(0, 0, 1, 0, 0, 0, 0),(0,0,0,1,0,0,0),(0, 0, 0, 0, 1, 0, 0),(0, 0, 0, 0, 0, 1, 0),(0, 0, 0, 0, 0, 0, 1)]
 K=2
 
+
 def ui_first_time(user_name):
     songs={}
     def func(rows):
-        for i in range(K):
-            row = rows.iloc[i]
+        for row in rows:
             songs[row['name']+row['artists']]=[row['calm'],row['energetic'],row['happy'],row['sad']]
     calm_songs=songs_db_maneger.get_k_most(K,'calm',user_name)
     energetic_songs=songs_db_maneger.get_k_most(K,'energetic',user_name)
@@ -83,7 +84,6 @@ def ui_first_time(user_name):
     return result_pic, result_song
 
 
-
 def take_picture():
     # Camera Settings
     video_capture = cv2.VideoCapture(1)
@@ -129,12 +129,13 @@ def take_picture():
     video_capture.release()
     cv2.destroyAllWindows()
 
+
 def sign_in():
     sg.theme('BluePurple')
     layout = [
         [sg.Text('sign in', justification='center')],
         [sg.Text('user name'), sg.InputText(key='userName')],
-        [sg.Button('sign in'), sg.Button('new user?')],
+        [sg.Button('sign in')],
     ]
     # Create the Window
     window = sg.Window('We Feel You', layout, location=(0, 0), resizable=True).finalize()
@@ -143,47 +144,72 @@ def sign_in():
     while True:
         event, values = window.read()
         if event=='sign in':
-            window.close()
-            main(values['userName'])
-            break
-        if event=='new user?':
-            window.close()
-            new_user(values['userName'])
-            main(values['userName'])
+            if is_user_exist(values['userName']):
+                window.close()
+                main(values['userName'])
+            else:
+                window.close()
+                new_user(values['userName'])
+                main(values['userName'])
             break
         if event==sg.WIN_CLOSED:
             break
     window.close()
 
+
+def progress_msg(progress: str, progress_thread: threading.Thread):
+    '''
+    :param progress: progress name to display
+    '''
+    sg.theme('BluePurple')
+
+    # adding songs progress animation
+    animation_texsts = progress + ['', '.', '..', '...']
+    progress_txt = sg.Text(key='progress_txt')
+
+    layout = [
+        [progress_txt]
+    ]
+
+    window = sg.Window('We Feel You', layout, location=(0, 0), resizable=True).finalize()
+
+    i = 0
+    while progress_thread.is_alive():
+        time.sleep(.5)
+        progress_txt.update(animation_texsts[i])
+        i = (i + 1) % len(animation_texsts)
+
+
 def add_songs(userName):
 
     sg.theme('BluePurple')
 
+    # adding songs progress animation
+    animation_texsts = 'adding the playlist' + ['', '.', '..', '...']
+    progress_txt = sg.Text(key='progress_txt')
 
     layout=[
         [sg.Text('enter the link to the spotify playlist', justification='center'), sg.InputText()],
-        [sg.Button('ADD'), sg.Button('done!')]
+        [sg.Button('add')],
+        [progress_txt]
     ]
 
     # Create the Window
     window = sg.Window('We Feel You', layout, location=(0, 0), resizable=True).finalize()
     window.maximize()
-    #thread
-    adder:threading.Thread
-    flag=False
+    #threads
+    adder: threading.Thread
     while True:
         event, values = window.read()
-        if event == 'ADD':
-            flag=True
-            #todo add progress bar
+        if event=='add':
             adder = threading.Thread(target=sDB.add_songs_to_db, args=(values[0], userName))
             adder.start()
-        if event=='done!':
+            window.close()
+            progress_msg('adding playlists', adder)
             break
         if event==sg.WIN_CLOSED:
             break
-    if flag:
-        adder.join()
+
     window.close()
 
 

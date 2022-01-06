@@ -4,6 +4,14 @@ USERS_FILE = './data_base/data/users'
 USERS_SONGS_DIR = './data_base/data/users_songs'
 
 
+def is_user_exist(userName):
+    with open(USERS_FILE, 'r') as ufile:
+        for user in ufile:
+            if user == userName:
+                return True
+    return False
+
+
 def add_user(userName):
     """
     register a new user
@@ -11,12 +19,10 @@ def add_user(userName):
     :return: True, None if the user register successful and False, reason (string) otherwise
     """
 
-    with open(USERS_FILE, 'r') as ufile:
-        for user in ufile:
-            if user == userName:
-                return False, 'user already exist'
+    if is_user_exist(userName):
+        return False, 'reason: user already exist'
     f = open(USERS_FILE, 'a')  # open file in mode 'a' -> open for writing to end of file
-    f.write(userName)
+    f.write(userName + '\n')
     f.close()
 
     # create a songs file for the new user

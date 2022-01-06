@@ -148,8 +148,8 @@ def sign_in():
             break
         if event=='new user?':
             window.close()
+            add_songs(values['userName'])
             new_user(values['userName'])
-            main(values['userName'])
             break
         if event==sg.WIN_CLOSED:
             break

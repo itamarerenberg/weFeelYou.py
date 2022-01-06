@@ -84,6 +84,7 @@ def ui_first_time(user_name):
     return result_pic, result_song
 
 
+
 def take_picture():
     # Camera Settings
     video_capture = cv2.VideoCapture(1)

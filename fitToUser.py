@@ -10,7 +10,7 @@ class userLearner:
         self.user_name=userName
         self.model = etm.emoToMoodModel(7, 4, load_from_file=load, userName=userName)
 
-    def learn_user(self, data_source:callable(object)=ui_main_window.ui_first_time):
+    def learn_user(self, data_source):
         emos, exp = data_source(self.user_name)
         self.model.fit(emos, exp)
 

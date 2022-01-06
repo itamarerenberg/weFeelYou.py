@@ -12,7 +12,7 @@ def is_user_exist(userName):
     '''
     with open(USERS_FILE, 'r') as ufile:
         for user in ufile:
-            if user == userName:
+            if user[:-1] == userName:  # user without the \n at the end of the row
                 return True
     return False
 

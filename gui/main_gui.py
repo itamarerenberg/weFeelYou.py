@@ -148,14 +148,14 @@ def sign_in():
         if event=='sign in':
             if is_user_exist(values['userName']):
                 window.close()
-                main(values['userName'])
+                main_window(values['userName'])
             else:
                 window.close()
                 users_db_maneger.add_user(values['userName'])
                 add_songs(values['userName'])
                 caster = ftu.userLearner(load=False, userName=values['userName'])
                 caster.learn_user(data_source=ui_first_time)
-                main(values['userName'])
+                main_window(values['userName'])
             break
         if event==sg.WIN_CLOSED:
             break
@@ -195,7 +195,7 @@ def add_songs(userName):
     sg.theme('BluePurple')
 
     layout=[
-        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.InputText()],
+        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.Multiline(size=(50,4),key='pl_ids')],
         [sg.Button('add')]
     ]
 
@@ -207,7 +207,7 @@ def add_songs(userName):
     while True:
         event, values = window.read()
         if event=='add':
-            adder = threading.Thread(target=sDB.add_songs_to_db, args=(values[0], userName))
+            adder = threading.Thread(target=sDB.add_multiple_playlists, args=(values['pl_ids'], userName))
             adder.start()
             adder.join()
             window.close()
@@ -218,7 +218,7 @@ def add_songs(userName):
     window.close()
 
 
-def main(userName):
+def main_window(userName):
     sg.theme('BluePurple')
 
     layout = [

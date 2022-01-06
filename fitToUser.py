@@ -1,7 +1,7 @@
 import numpy as np
 
 import emosToMood as etm
-from gui import  ui_main_window
+from gui import  main_gui
 
 
 class userLearner:

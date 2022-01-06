@@ -2,7 +2,6 @@ import pickle
 import keras
 import numpy as np
 from spotifyIntegration import get_song_feature
-import sklearn
 
 model = 0
 scaler = 0
@@ -10,6 +9,9 @@ loaded = False
 
 
 def load_model():
+    '''
+    load the model of quantify songs
+    '''
     global model
     global scaler
     global loaded
@@ -18,10 +20,14 @@ def load_model():
     loaded = True
 
 
-load_model()
+
 
 
 def predict_mood(id_song):
+    '''
+    :param id_song: id of a song to predict
+    :return: predicted vector of mood for the song
+    '''
     if not loaded:
         load_model()
     # Obtain the features of the song (Function created on helpers.py)
@@ -29,3 +35,6 @@ def predict_mood(id_song):
     preds_arg = np.array(preds[0][6:-2]).reshape(1, -1)
     preds_arg = scaler.transform(preds_arg)
     return model.predict(preds_arg)[0]
+
+
+load_model()

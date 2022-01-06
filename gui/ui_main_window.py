@@ -165,7 +165,7 @@ def progress_msg(progress: str, progress_thread: threading.Thread):
     sg.theme('BluePurple')
 
     # adding songs progress animation
-    animation_texsts = progress + ['', '.', '..', '...']
+    animation_texsts = [progress] + ['', '.', '..', '...']
     progress_txt = sg.Text(key='progress_txt')
 
     layout = [
@@ -186,11 +186,11 @@ def add_songs(userName):
     sg.theme('BluePurple')
 
     # adding songs progress animation
-    animation_texsts = 'adding the playlist' + ['', '.', '..', '...']
+    animation_texsts = ['adding the playlist'] + ['', '.', '..', '...']
     progress_txt = sg.Text(key='progress_txt')
 
     layout=[
-        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.InputText()],
+        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.Multiline(size=(50,4),key='pl_id')],
         [sg.Button('add')],
         [progress_txt]
     ]
@@ -203,7 +203,7 @@ def add_songs(userName):
     while True:
         event, values = window.read()
         if event=='add':
-            adder = threading.Thread(target=sDB.add_songs_to_db, args=(values[0], userName))
+            adder = threading.Thread(target=sDB.add_multiple_playlists, args=(values['pl_id'], userName))
             adder.start()
             window.close()
             progress_msg('adding playlists', adder)

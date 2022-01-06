@@ -32,7 +32,9 @@ def fit_k_songs(pl_size, mood_vec, userName='general'):
     return url
 
 
-
+def add_multiple_playlists(pl_ids,userName):
+    for pl in pl_ids.split('\n'):
+        add_songs_to_db(pl,userName)
 def add_songs_to_db(pl_id, userName='general'):
     '''
     Quantified and add all the songs in a playlist to the to the system's DB

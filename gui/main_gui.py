@@ -11,6 +11,9 @@ import cv2
 
 
 THEME ='darkPurple2'
+TEXT_COLOR = 'white'
+FONT=('bold',20)
+INPUT_FONT=('',20)
 
 QA = 'what would you like to listen when you are '
 RESULT_PIC=[(1, 0, 0, 0, 0, 0, 0), (0, 0, 1, 0, 0, 0, 0), (0, 0, 0, 1, 0, 0, 0), (0, 0, 0, 0, 1, 0, 0), (0, 0, 0, 0, 0, 1, 0), (0, 0, 0, 0, 0, 0, 1)]
@@ -46,15 +49,15 @@ def ui_first_time(user_name):
 
     layout = [
 
-        [sg.Listbox(list_of_quiz,size=(170,10))],
-        [sg.Text(QA + 'angry?',justification='center'), sg.InputText(key='angry')],
-        [sg.Text(QA + 'fear?',justification='center'), sg.InputText(key='fear')],
-        [sg.Text(QA + 'happy?',justification='center'), sg.InputText(key='happy')],
-        [sg.Text(QA + 'sad?',justification='center'), sg.InputText(key='sad')],
-        [sg.Text(QA + 'surprise?',justification='center'), sg.InputText(key='surprise')],
-        [sg.Text(QA + 'neutral?',justification='center'), sg.InputText(key='neutral')],
+        [sg.Listbox(list_of_quiz,size=(170,10),font=INPUT_FONT,no_scrollbar=True)],
+        [sg.Text(QA + 'angry?',text_color=TEXT_COLOR,font=FONT,justification='center'), sg.InputText(key='angry',font=INPUT_FONT)],
+        [sg.Text(QA + 'fear?',text_color=TEXT_COLOR,font=FONT,justification='center'), sg.InputText(key='fear',font=INPUT_FONT)],
+        [sg.Text(QA + 'happy?',text_color=TEXT_COLOR,font=FONT,justification='center'), sg.InputText(key='happy',font=INPUT_FONT)],
+        [sg.Text(QA + 'sad?',text_color=TEXT_COLOR,font=FONT,justification='center'), sg.InputText(key='sad',font=INPUT_FONT)],
+        [sg.Text(QA + 'surprise?',text_color=TEXT_COLOR,font=FONT,justification='center'), sg.InputText(key='surprise',font=INPUT_FONT)],
+        [sg.Text(QA + 'neutral?',text_color=TEXT_COLOR,font=FONT,justification='center'), sg.InputText(key='neutral',font=INPUT_FONT)],
 
-        [sg.Button('END')]
+        [sg.Button('END',font=INPUT_FONT)]
     ]
 
     # Create the Window
@@ -92,7 +95,7 @@ def take_picture():
     colslayout = [colwebcam1]
 
     rowfooter = [sg.Image(filename="", key="-IMAGEBOTTOM-")]
-    layout = [colslayout, rowfooter,[sg.ReadButton('capture')]]
+    layout = [colslayout, rowfooter,[sg.ReadButton('capture',font=INPUT_FONT)]]
 
     window = sg.Window("We Feel You", layout,
                        no_titlebar=False, alpha_channel=1, grab_anywhere=False,
@@ -126,9 +129,9 @@ def sign_in():
     sg.theme(THEME)
 
     layout = [
-        [sg.Text('sign in', justification='center')],
-        [sg.Text('user name'), sg.InputText(key='user_name')],
-        [sg.Button('sign in')],
+        [sg.Text('sign in',text_color=TEXT_COLOR,font=FONT,size=(45,1), justification='center')],
+        [sg.Text('user name',font=FONT,text_color=TEXT_COLOR), sg.InputText(key='user_name',font=INPUT_FONT)],
+        [sg.Button('sign in',font=INPUT_FONT)],
     ]
     # Create the Window
     window = sg.Window('We Feel You', layout, location=(0, 0), resizable=True).finalize()
@@ -155,8 +158,8 @@ def add_songs(userName):
     sg.theme(THEME)
 
     layout=[
-        [sg.Text('enter the link to the spotify playlist', justification='center'), sg.Multiline(size=(50,4),key='pl_ids')],
-        [sg.Button('add')]
+        [sg.Text('enter the link to the spotify playlist',text_color=TEXT_COLOR,font=FONT, justification='center'), sg.Multiline(size=(50,4),key='pl_ids',no_scrollbar=True,font=INPUT_FONT)],
+        [sg.Button('add',font=INPUT_FONT)]
     ]
 
     # Create the Window
@@ -182,8 +185,8 @@ def main_window(userName):
     sg.theme(THEME)
 
     layout = [
-        [sg.Text('We Feel You', justification='center')],
-        [sg.Button('Generate Playlist To Your Mood'), sg.Button('Add Playlist To DataBase')]
+        [sg.Text('We Feel You',text_color=TEXT_COLOR,font=FONT,size=(45,1), justification='center')],
+        [sg.Button('Generate Playlist To Your Mood',font=INPUT_FONT), sg.Button('Add Playlist To DataBase',font=INPUT_FONT)]
     ]
     # Create the Window
     window = sg.Window('We Feel You', layout, location=(0, 0), resizable=True).finalize()

@@ -76,10 +76,10 @@ def ui_first_time(user_name):
     return RESULT_PIC, result_song
 
 
-def take_picture():
+def take_picture(camera):
     # Camera Settings
     try:
-        video_capture = cv2.VideoCapture(0)
+        video_capture = cv2.VideoCapture(camera)
     except:
         video_capture = cv2.VideoCapture(1)
 
@@ -186,7 +186,8 @@ def main_window(userName):
 
     layout = [
         [sg.Text('We Feel You',text_color=TEXT_COLOR,font=FONT,size=(45,1), justification='center')],
-        [sg.Button('Generate Playlist To Your Mood',font=INPUT_FONT), sg.Button('Add Playlist To DataBase',font=INPUT_FONT)]
+        [sg.Button('Generate Playlist To Your Mood',font=INPUT_FONT), sg.Button('Add Playlist To DataBase',font=INPUT_FONT)],
+        [sg.Button('Generate Playlist To Your Mood using WEBCAM',font=INPUT_FONT)]
     ]
     # Create the Window
     window = sg.Window('We Feel You', layout, location=(0, 0), resizable=True).finalize()
@@ -195,7 +196,11 @@ def main_window(userName):
     while True:
         event, values = window.read()
         if event=='Generate Playlist To Your Mood':
-            face_pic = take_picture()
+            face_pic = take_picture(0)
+            pl = fit_playlist(face_pic, user_name=userName)
+            webbrowser.open(pl)
+        if event=='Generate Playlist To Your Mood using WEBCAM':
+            face_pic = take_picture(1)
             pl = fit_playlist(face_pic, user_name=userName)
             webbrowser.open(pl)
         if event=='Add Playlist To DataBase':
